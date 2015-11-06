@@ -9,7 +9,13 @@ module.exports = function(app) {
 
 
 	app.get('/notif', function(req, res) {
-		res.send("prout");
-	})
+		res.render('test');
+	});
+
+	app.post('/notif', function(req, res) {
+		// Here put the code which push the notif on the device.
+		console.log("Notification pushed!\n");
+		res.redirect('/');
+	});
 
 }
