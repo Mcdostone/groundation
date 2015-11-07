@@ -12,16 +12,10 @@ module.exports = function(filename) {
 		for (var k in this.data) {
 			var event = this.data[k];
 
-			//console.log(event);
-
 			var start = event.start;
-
-			//console.log(start.getDate());
-
 			var end = event.end;
 			var location = event.location;
 			var desc = format(start) + " - " + format(end) +"\t" + event.summary;
-			console.log(desc);
 		}
     }
 
