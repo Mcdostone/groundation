@@ -98,4 +98,29 @@ module.exports = function(app) {
 	});
 
 
+	app.get('/api/buildings/:id', function(req, res) {
+		models.Building.findById(req.params.id).then(function(building) {
+			res.json(building);
+		});
+	});
+
+
+	app.put('/api/buildings/:id/calendar', function(req, res) {
+		var url = req.body.url;
+		var file = req.body.file;
+		models.Building.find({where:{id:req.params.id}}).then(function(data) {
+
+			if(data) {
+				if(url && data)
+					data.updateAttributes({ 'url': url }).then(function(b) {});
+				if(file && data) 
+					data.updateAttributes({ 'file': file }).then(function(b) {});
+
+				res.json(data);
+			}
+
+    	});
+	});
+
+
 }

@@ -2,10 +2,9 @@ var Sequelize = require('sequelize');
 
 module.exports = function(sequelize) {
     
-	return sequelize.define('building', {
+	var Building = sequelize.define('building', {
 	  	name: {
 	    	type: Sequelize.STRING,
-	    	field: 'name'
 	  	},
 	  	address: {
 		    type: Sequelize.STRING
@@ -17,6 +16,15 @@ module.exports = function(sequelize) {
 		    type: Sequelize.STRING
 	  	}
 	}, {
-	  	freezeTableName: true
+	  	freezeTableName: false
 	});
+
+	Building.sync({force: true}).then(function () {
+  		Building.create({
+    		name: 'Telecom Nancy',
+    		address: 'Nancy'
+  		});
+	});
+
+	return Building;
 };
