@@ -1,6 +1,8 @@
 var express = require('express');
 var routes = require('./app/routes');
 var bodyParser = require('body-parser');
+var Sequelize = require('sequelize');
+var configDB  = require('./config/db');
 
 // Modules for view rendering
 var helpers 	= require('express-helpers')
@@ -17,6 +19,7 @@ var app = express();
 app.set('view engine', 'ejs');
 app.set("view options", {layout: false});
 app.set('views', __dirname + '/views');
+app.set('models', require('./app/models'));
 app.engine('ejs', engine);
 
 // Module for getting params in POST
@@ -25,6 +28,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 
 routes(app);
+
+var sequelize = new Sequelize(configDB.url);
+
 
 app.listen(PORT);
 

@@ -1,3 +1,3 @@
 module.exports = {
-    'url' : 'sqlite://localhost/test'
+    'url' : 'sqlite://localhost/groundation'
 }

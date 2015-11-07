@@ -1,4 +1,7 @@
 var parse = require('./parse');
+var models = require('./models');
+
+
 /**
 * All routes of website.
 */
@@ -22,10 +25,25 @@ module.exports = function(app) {
 
 	app.get('/buildings', function(req,res) {
 		var buildings = ['Telecom Nancy', 'Fac de sciences'];
-		res.json(JSON.stringify(buildings));
+		res.json(buildings);
+/*		models.Building.all().then(function (d) {
+    		console.log(d);
+		});*/
+
 		//res.send(JSON.stringify(buildings));
 		//res.redirect('/');
 
 	})
+
+	app.get('/create', function(req,res) {
+		models.Building.build({
+    		name: 'Telecom Nancy'
+  		});
+  		var Building = app.get('models').Building;
+
+		var all = models.Building.all();
+		console.log(all);
+  		res.redirect('/');
+	});
 
 }
