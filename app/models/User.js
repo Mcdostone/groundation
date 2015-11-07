@@ -2,7 +2,7 @@ var Sequelize = require('sequelize');
 
 module.exports = function(sequelize) {
     
-	return sequelize.define('user', {
+	var User = sequelize.define('user', {
 	  	idParse: {
 	    	type: Sequelize.STRING,
 	  	},
@@ -15,5 +15,7 @@ module.exports = function(sequelize) {
 	}, {
 	  	freezeTableName: true
 	});
+
+	return User;
 
 };

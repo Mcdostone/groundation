@@ -80,7 +80,7 @@ module.exports = function(app) {
 	 * URLs for User
 	 */
 
-	 app.post('/api/users', function(req,res) {
+	app.post('/api/users', function(req,res) {
 		var idParse = req.body.idParse;
 		var idBuilding = req.body.idBuilding;
 		models.User.findOne({where: {idParse: idParse}}).then(function(user) {
@@ -96,6 +96,12 @@ module.exports = function(app) {
 			else
 				res.json(user);
 
+		});
+	});
+
+	app.get('/api/users', function(req,res) {
+		models.User.findAll().then(function(users) {
+				res.json(users)
 		});
 	});
 
@@ -143,7 +149,6 @@ module.exports = function(app) {
 			}
     	});
 	});
-
 
 
 }
