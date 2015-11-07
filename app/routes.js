@@ -84,7 +84,7 @@ module.exports = function(app) {
 
 	app.post('/api/users', function(req,res) {
 		var idParse = req.body.idParse;
-		var bId = req.body.buildingId;
+		var bId = req.body.idBuilding;
 		console.log(req.body);
 		console.log(bId + " - " + idParse);
 				models.User.findOne({where: {idParse: idParse}}).then(function(user) {
