@@ -113,7 +113,7 @@ module.exports = function(app) {
 
 		JSON2Calendar(json, function(calendar) {
 			JSON2Calendar.writer(calendar, function(filename) {
-				models.User.findOne(where: {idParse: idParse}}).then(function(user) {
+				models.User.findOne(where: {idParse: id}}).then(function(user) {
 					if(user)
 						user.updateAttributes({ 'filename': filename }).then(function(u) {res.json(u)});
 					else 
