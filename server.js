@@ -30,6 +30,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //For css
 app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/uploads'));
 
 routes(app);
 helpers(app);

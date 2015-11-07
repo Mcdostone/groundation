@@ -83,23 +83,23 @@ module.exports = function(app) {
 	 */
 
 	app.post('/api/users', function(req,res) {
-		var idParse = req.body.idParse;
+		var id = req.body.idParse;
 		var bId = req.body.idBuilding;
-		console.log(req.body);
-		console.log(bId + " - " + idParse);
-				models.User.findOne({where: {idParse: idParse}}).then(function(user) {
-
+		
+		models.User.findOne({where: {idParse: id}}).then(function(user) {
 			// never saved ...
+			console.log(user);
 			if(!user) {
-				var user = models.User.build({ idParse: idParse, buildingId: bId});
+				var user = models.User.build({ idParse: id, buildingId: bId});
 
 				user.save().then(function(u) {
 					res.json(u);
 				});
 			}
 			else {
-				//user.updateAttributes({ 'idParse': dBuilding }).then(function(b) {});
-				res.json(user);
+				user.updateAttributes({ 'buildingId': bId }).then(function(u) {
+					res.json(u);
+				});
 			}
 		});
 	});
@@ -110,12 +110,20 @@ module.exports = function(app) {
 		});
 	});
 
+	app.get('/api/users/:id', function(req,res) {
+		var id = req.params.id;
+		models.User.findOne({where: {idParse: id}}).then(function(user) {
+			res.json(user);
+		});
+	});
+
 	app.post('/api/users/:id/calendar',function(req, res) {
 		var json = req.body.json;
 		var id = req.params.id;
 
 		JSON2Calendar(json, function(calendar) {
 			JSON2Calendar.writer(calendar, function(filename) {
+			
 				models.User.findOne({where: {idParse: id}}).then(function(user) {
 					if(user)
 						user.updateAttributes({ 'filename': filename }).then(function(u) {res.json(u)});
@@ -138,6 +146,18 @@ module.exports = function(app) {
 		models.Building.findById(req.params.id).then(function(building) {
 			res.json(building);
 		});
+	});
+
+
+	app.post('/api/buildings', function(req, res) {
+		var building = models.Building.build({ name: req.body.name, address: req.body.address});
+
+		building.save().then(function(b) {
+			res.json(b)
+		})
+		.catch(function(error) {
+    		console.log(error);
+  		});
 	});
 
 
