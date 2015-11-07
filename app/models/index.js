@@ -14,7 +14,7 @@ models.forEach(function(model) {
 
 // describe relationships
 (function(m) {
-//  	m.User.belongsTo(m.Building);
+  	m.User.belongsTo(m.Building);
 })(module.exports);
 
 

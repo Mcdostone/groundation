@@ -16,11 +16,11 @@ module.exports = function(sequelize) {
 	  	freezeTableName: true
 	});
 
-	User.sync({force: true}).then(function () {
+	/*User.sync({force: true}).then(function () {
   		User.create({
     		idParse: 'gjdgjkdkjfdgkjd'
   		});
-	});
+	});*/
 
 	return User;
 
