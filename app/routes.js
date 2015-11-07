@@ -117,7 +117,9 @@ module.exports = function(app) {
 	app.post('/api/buildings/:id/calendar', upload.single('file') ,function(req, res, next) {
 		var url = req.body.url;
 		var file = req.file;
-		console.log(file);
+		var json = req.body.json;
+
+		console.log(json);
 
 		models.Building.find({where:{id:req.params.id}}).then(function(data) {
 
