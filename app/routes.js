@@ -78,19 +78,13 @@ module.exports = function(app) {
 
 			// never saved ...
 			if(!user) {
-
 				var user = models.User.build({ idParse: idParse, idBuilding: idBuilding});
 
 				user.save().then(function(u) {
-					res.status(200);
 					res.json(u);
-				})
-				.catch(function(error) {
-					redirect('/');
-    				console.log(error);
-  				});
+				});
 			}
-			else 
+			else
 				res.json(user);
 
 		});
