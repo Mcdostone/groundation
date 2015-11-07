@@ -1,5 +1,10 @@
 var parse = require('./parse');
 var models = require('./models');
+var multer = require('multer');
+var config = require('../config/server');
+var upload = multer({ dest: config.UPLOAD_DIR });
+
+
 
 /**
 * All routes of website.
@@ -21,6 +26,10 @@ module.exports = function(app) {
 		parse('161ba40bf138559d00a1a19ba088761602875d6f131049cfce89529bd56c83f7', req.body.notification);
 		res.redirect('/');
 	});
+
+	app.get('/tmp', function(req, res) {
+		res.render('upload');
+	})
 
 
 
@@ -105,22 +114,22 @@ module.exports = function(app) {
 	});
 
 
-	app.put('/api/buildings/:id/calendar', function(req, res) {
+	app.post('/api/buildings/:id/calendar', upload.single('file') ,function(req, res, next) {
 		var url = req.body.url;
-		var file = req.body.file;
+		var file = req.file;
+		console.log(file);
+
 		models.Building.find({where:{id:req.params.id}}).then(function(data) {
 
 			if(data) {
 				if(url && data)
 					data.updateAttributes({ 'url': url }).then(function(b) {});
 				if(file && data) 
-					data.updateAttributes({ 'file': file }).then(function(b) {});
+					data.updateAttributes({ 'filename': file.filename }).then(function(b) {});
 
 				res.json(data);
 			}
-
     	});
 	});
-
 
 }

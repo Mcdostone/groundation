@@ -2,7 +2,6 @@ var express = require('express');
 var routes = require('./app/routes');
 var bodyParser = require('body-parser');
 var Sequelize = require('sequelize');
-var multer = require('multer');
 var configDB  = require('./config/db');
 var models = require('./app/models');
 var helpers = require('express-helpers')
@@ -32,6 +31,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 routes(app);
 helpers(app);
+
 
 var sequelize = new Sequelize(configDB.url);
 models.sequelize.sync().then(function () {
