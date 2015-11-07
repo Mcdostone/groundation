@@ -5,6 +5,9 @@ module.exports = function(filename) {
     this.data = ical.parseFile(filename);
 
 
+    /**
+     * ToString method (overload)
+     */
     this.toString = function() {
 		for (var k in this.data) {
 			var event = this.data[k];
