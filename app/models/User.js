@@ -8,11 +8,12 @@ module.exports = function(sequelize) {
 	  	},
 	  	url: {
 		    type: Sequelize.STRING
-	  	}
+	  	},
 	  	filename: {
 		    type: Sequelize.STRING
 	  	}
 	}, {
 	  	freezeTableName: true
 	});
+
 };

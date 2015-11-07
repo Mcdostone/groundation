@@ -6,10 +6,17 @@ var configDB = require('../../config/db');
 var sequelize = new Sequelize(configDB.url);
 
 // load models
-var models = ['Building'];
+var models = ['Building', 'User'];
 models.forEach(function(model) {
-  module.exports[model] = sequelize.import(__dirname + '/' + model);
+  	module.exports[model] = sequelize.import(__dirname + '/' + model);
 });
+
+
+// describe relationships
+(function(m) {
+  	m.User.hasOne(m.Building);
+  	m.Building.belongsTo(m.User);
+})(module.exports);
 
 
 // export connection

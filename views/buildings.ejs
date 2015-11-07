@@ -1,5 +1,7 @@
 <ul>
 <% for(var i=0; i<buildings.length; i++) {%>
-   <li><%= buildings[i].id %> ==> <%= buildings[i].name %> - <%= buildings[i].address %></li>
+	<a href="<%- '/buildings/'+ buildings[i].id %>">
+   		<li><%= buildings[i].id %> ==> <%= buildings[i].name %> - <%= buildings[i].address %></li>
+	</a>
 <% } %>
 </ul>
