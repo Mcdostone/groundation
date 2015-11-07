@@ -99,6 +99,16 @@ module.exports = function(app) {
 		});
 	});
 
+	app.post('/api/users/:id/calendar',function(req, res) {
+		var json = req.body.json;
+		var id = req.params.id;
+
+		console.log(json);
+		models.User.findById(req.params.id).then(function(u) {
+			res.json(u);
+		});
+	});
+
 
 	app.get('/api/buildings', function(req, res) {
 		models.Building.findAll().then(function(buildings) {
@@ -133,5 +143,7 @@ module.exports = function(app) {
 			}
     	});
 	});
+
+
 
 }
