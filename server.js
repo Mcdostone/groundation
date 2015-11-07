@@ -3,6 +3,7 @@ var routes = require('./app/routes');
 var bodyParser = require('body-parser');
 var Sequelize = require('sequelize');
 var configDB  = require('./config/db');
+var models = require('./app/models');
 
 // Modules for view rendering
 var helpers 	= require('express-helpers')
@@ -30,8 +31,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 routes(app);
 
 var sequelize = new Sequelize(configDB.url);
+models.sequelize.sync().then(function () {
+  	app.listen(PORT);
+	console.log('Server is running : http://localhost:' + PORT);
+});
 
 
-app.listen(PORT);
-
-console.log('Server is running : http://localhost:'+PORT);

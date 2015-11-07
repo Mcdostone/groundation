@@ -23,27 +23,30 @@ module.exports = function(app) {
 	});
 
 
-	app.get('/buildings', function(req,res) {
-		var buildings = ['Telecom Nancy', 'Fac de sciences'];
-		res.json(buildings);
-/*		models.Building.all().then(function (d) {
-    		console.log(d);
-		});*/
+	app.post('/create', function(req, res) {
+		var building = models.Building.build({ name: req.body.name, address: req.body.address});
 
-		//res.send(JSON.stringify(buildings));
-		//res.redirect('/');
+		building.save().then(function(b) {})
+		.catch(function(error) {
+    		console.log(error)
+  		});
 
+  		res.redirect('/');
 	})
 
-	app.get('/create', function(req,res) {
-		models.Building.build({
-    		name: 'Telecom Nancy'
-  		});
-  		var Building = app.get('models').Building;
 
-		var all = models.Building.all();
-		console.log(all);
-  		res.redirect('/');
+	app.get('/create', function(req,res) {
+  		res.render('create');
+	});
+
+
+	app.get('/buildings', function(req,res) {
+		models.Building.findAll().then(function(buildings) {
+			if(buildings)
+				res.render('buildings', {'buildings' : buildings});
+			else
+				redirect('/');
+		})
 	});
 
 }

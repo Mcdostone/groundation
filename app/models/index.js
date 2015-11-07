@@ -6,8 +6,7 @@ var configDB = require('../../config/db');
 var sequelize = new Sequelize(configDB.url);
 
 // load models
-var models = ['Building',
-];
+var models = ['Building'];
 models.forEach(function(model) {
   module.exports[model] = sequelize.import(__dirname + '/' + model);
 });
