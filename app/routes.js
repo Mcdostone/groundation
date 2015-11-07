@@ -40,13 +40,16 @@ module.exports = function(app) {
 	});
 
 
-	app.get('/buildings', function(req,res) {
+	app.get('/buildings/', function(req,res) {
 		models.Building.findAll().then(function(buildings) {
-			if(buildings)
-				res.render('buildings', {'buildings' : buildings});
+			if(buildings) {
+				//res.render('buildings', {'buildings' : buildings});
+				res.json(buildings);
+			}
 			else
 				redirect('/');
-		})
+		});
+
 	});
 
 }
