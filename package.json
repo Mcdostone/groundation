@@ -22,7 +22,7 @@
     "express": "^4.13.3",
     "express-helpers": "^1.3.2",
     "ical": "^0.4.0",
-    "icalendar": "^0.7.1",
+    "ical-generator": "^0.2.4",
     "multer": "^1.1.0",
     "parse": "^1.6.8",
     "sequelize": "^3.13.0",
