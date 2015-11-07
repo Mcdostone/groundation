@@ -8,10 +8,7 @@ module.exports = function(json, cb) {
 
 	var ical = new icalendar.iCalendar();
 
-	console.log(json);
 	for(i in json) {
-		
-		//console.log(json[i]);
 		var tmp  = json[i];
 
 		var event = new icalendar.VEvent(i);
@@ -23,7 +20,7 @@ module.exports = function(json, cb) {
 		ical.addComponent(event);
 	}
 
-	ical.validate();
+//	ical.validate();
 
 	cb(ical);
 };

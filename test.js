@@ -1,5 +1,10 @@
-var calendar = require('./calendar');
+var fs = require('fs');
+var JSON2Calendar = require('./JSON2Calendar');
 
 
-var cal = calendar('./calendar.ics');
-console.log(cal.toString());
+fs.readFile('./uploads/tmp', 'utf8', function (err,data) {
+  	if (err) return console.log(err);
+	JSON2Calendar(JSON.parse(data), function(calendar) {
+		JSON2Calendar.writer(calendar, function(filename) {});
+	});
+});
