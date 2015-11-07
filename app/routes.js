@@ -1,7 +1,6 @@
 var parse = require('./parse');
 var models = require('./models');
 
-
 /**
 * All routes of website.
 */
@@ -45,17 +44,17 @@ module.exports = function(app) {
 	})
 
 
-	app.get('/buildings/', function(req,res) {
+	app.get('/buildings', function(req,res) {
 		models.Building.findAll().then(function(buildings) {
 			if(buildings) {
 				res.render('buildings', {'buildings' : buildings});
-				//res.json(buildings);
 			}
 			else
 				redirect('/');
 		});
 	});
-	
+
+
 	app.get('/buildings/:id', function(req,res) {
 		models.Building.findById(req.params.id).then(function(building) {
 			if(building) {
@@ -72,14 +71,15 @@ module.exports = function(app) {
 	 * URLs for User
 	 */
 
-	 app.post('/users', function(req,res) {
+	 app.post('/api/users', function(req,res) {
 		var idParse = req.body.idParse;
+		var idBuilding = req.body.idBuilding;
 		models.User.findOne({where: {idParse: idParse}}).then(function(user) {
 
 			// never saved ...
 			if(!user) {
 
-				var user = models.User.build({ idParse: idParse});
+				var user = models.User.build({ idParse: idParse, idBuilding: idBuilding});
 
 				user.save().then(function(u) {
 					res.status(200);
@@ -90,7 +90,16 @@ module.exports = function(app) {
     				console.log(error);
   				});
 			}
+			else 
+				res.json(user);
 
+		});
+	});
+
+
+	app.get('/api/buildings', function(req, res) {
+		models.Building.findAll().then(function(buildings) {
+				res.json(buildings)
 		});
 	});
 

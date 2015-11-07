@@ -6,7 +6,7 @@ var configDB = require('../../config/db');
 var sequelize = new Sequelize(configDB.url);
 
 // load models
-var models = ['Building', 'User'];
+var models = ['User', 'Building'];
 models.forEach(function(model) {
   	module.exports[model] = sequelize.import(__dirname + '/' + model);
 });
@@ -14,8 +14,7 @@ models.forEach(function(model) {
 
 // describe relationships
 (function(m) {
-  	m.User.hasOne(m.Building);
-  	m.Building.belongsTo(m.User);
+  	m.User.belongsTo(m.Building);
 })(module.exports);
 
 
