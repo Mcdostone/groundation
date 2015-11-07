@@ -1,8 +1,27 @@
 <% layout('layout') -%>
-<ul>
+<table class="table">
+	<thead class="thead-default">
+	<tr>
+		<th>#</th>
+		<th>Name</th>
+		<th>Address</th>
+		<th>Town</th>
+		<th>Link</th>
+	</tr>
+	</thead>
+	<tbody>
+
 <% for(var i=0; i<buildings.length; i++) {%>
-	<a href="<%- '/buildings/'+ buildings[i].id %>">
-   		<li><%= buildings[i].id %> ==> <%= buildings[i].name %> - <%= buildings[i].address %></li>
-	</a>
+
+<tr>
+	<th scope="row"><%= buildings[i].id %></th>
+	<td><%= buildings[i].name %></td>
+	<td><%= buildings[i].address %></td>
+	<td>Town</td>
+	<td><a href="<%- '/buildings/'+ buildings[i].id %>">@</a></td>
+</tr>
+
 <% } %>
-</ul>
+	</tbody>
+</table>
+<a href="/buildings/new"><button class="btn btn-primary">Add +</button></a>

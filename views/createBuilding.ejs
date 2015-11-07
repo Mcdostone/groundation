@@ -1,7 +1,30 @@
-<% layout('layout')  -%>
-<h1>Create a building</h1>
+<% layout('layout') -%>
+<h1>Create building:</h1>
 <form action="/buildings" method="POST">
-    <label>Name: </label><input type="text" name="name"><br>
-    <label>address: </label><input type="text" name="address"><br>
-    <input type="submit" value="submit">
+    <div class="form-group row">
+        <label for="inputName" class="col-sm-2 form-control-label">Name</label>
+
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputName" name="name">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputAddress" class="col-sm-2 form-control-label">Address</label>
+
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputAddress" name="address">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 form-control-label">Town</label>
+
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputPassword3" name="town">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-secondary">Submit</button>
+        </div>
+    </div>
 </form>
