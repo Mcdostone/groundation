@@ -7,8 +7,11 @@ module.exports = function(sequelize) {
 	    	type: Sequelize.STRING,
 	  	},
 	  	address: {
-		    type: Sequelize.STRING
-	  	},
+			type: Sequelize.STRING
+		},
+		town: {
+			type: Sequelize.STRING
+		},
 	  	url: {
 		    type: Sequelize.STRING
 	  	},

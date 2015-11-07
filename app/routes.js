@@ -31,7 +31,7 @@ module.exports = function(app) {
 
 	app.get('/tmp', function(req, res) {
 		res.render('upload');
-	})
+	});
 
 
 
@@ -40,19 +40,19 @@ module.exports = function(app) {
 	 */
 	app.get('/buildings/new', function(req, res) {
 		res.render('createBuilding');
-	})
+	});
 
 
 	app.post('/buildings', function(req, res) {
-		var building = models.Building.build({ name: req.body.name, address: req.body.address});
+		var building = models.Building.build({ name: req.body.name, address: req.body.address, town: req.body.town});
 
 		building.save().then(function(b) {})
 		.catch(function(error) {
     		console.log(error);
   		});
 
-  		res.redirect('/');
-	})
+  		res.redirect('/buildings');
+	});
 
 
 	app.get('/buildings', function(req,res) {
