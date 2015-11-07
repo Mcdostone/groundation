@@ -84,20 +84,21 @@ module.exports = function(app) {
 
 	app.post('/api/users', function(req,res) {
 		var idParse = req.body.idParse;
-		var idBuilding = req.body.idBuilding;
+		var buildingId = req.body.buildingId;
 		models.User.findOne({where: {idParse: idParse}}).then(function(user) {
 
 			// never saved ...
 			if(!user) {
-				var user = models.User.build({ idParse: idParse, idBuilding: idBuilding});
+				var user = models.User.build({ idParse: idParse, "buildingId": buildingId});
 
 				user.save().then(function(u) {
 					res.json(u);
 				});
 			}
-			else
+			else {
+				//user.updateAttributes({ 'idParse': dBuilding }).then(function(b) {});
 				res.json(user);
-
+			}
 		});
 	});
 
