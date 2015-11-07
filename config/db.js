@@ -1,3 +1,6 @@
 module.exports = {
-    'url' : 'sqlite://localhost/groundation'
+    'url' : 'sqlite://localhost/groundation',
+    'user': '',
+    'password': '',
+    'database': 'goundation'
 }

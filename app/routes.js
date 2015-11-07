@@ -3,6 +3,8 @@ var models = require('./models');
 var multer = require('multer');
 var config = require('../config/server');
 var upload = multer({ dest: config.UPLOAD_DIR });
+var disk = multer.diskStorage;
+var JSON2Calendar = require('../JSON2Calendar');
 
 
 
@@ -109,9 +111,15 @@ module.exports = function(app) {
 		var json = req.body.json;
 		var id = req.params.id;
 
-		console.log(json);
-		models.User.findById(req.params.id).then(function(u) {
-			res.json(u);
+		JSON2Calendar(json, function(calendar) {
+			JSON2Calendar.writer(calendar, function(filename) {
+				models.User.findById(id).then(function(user) {
+					if(user) 
+						user.updateAttributes({ 'filename': filename }).then(function(u) {res.json(u)});
+					else 
+					res.json(user);
+				});
+			});
 		});
 	});
 
@@ -135,9 +143,7 @@ module.exports = function(app) {
 		var file = req.file;
 		var json = req.body.json;
 
-		console.log(json);
-
-		models.Building.find({where:{id:req.params.id}}).then(function(data) {
+		models.Building.findById(req.params.id).then(function(data) {
 
 			if(data) {
 				if(url && data)

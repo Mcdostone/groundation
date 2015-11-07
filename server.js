@@ -33,7 +33,12 @@ routes(app);
 helpers(app);
 
 
-var sequelize = new Sequelize(configDB.url);
+var sequelize = new Sequelize(configDB.database, configDB.user, configDB.password, {
+  	host: 'localhost',
+  	dialect: 'sqlite',
+ 	logging: false
+});
+
 models.sequelize.sync().then(function () {
   	app.listen(PORT);
 	console.log('Server is running : http://localhost:' + PORT);
