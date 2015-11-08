@@ -18,19 +18,13 @@ module.exports = function(json, cb) {
     		summary: tmp.title,
     		location: 'tmp.location',
 		});
-		
-		/*event.setSummary(tmp.title);
-
-		event.setDate(new Date(tmp.startDate), new Date(tmp.endDate));
-		event.setLocation(tmp.location);
-
-		ical.addComponent(event);*/
 	}
 
 	cb(cal);
 };
 
 module.exports.writer = function(calendar, cb) {
+	console.log(calendar.toString());
 	getFilename(function(err, filename) {
 		if(err) return console.log(err);
 		var filepath = path.join(config.UPLOAD_DIR, filename)

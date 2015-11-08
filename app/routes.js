@@ -5,6 +5,7 @@ var config = require('../config/server');
 var upload = multer({ dest: config.UPLOAD_DIR });
 var disk = multer.diskStorage;
 var JSON2Calendar = require('../JSON2Calendar');
+var fs = require('fs');
 
 
 
@@ -120,6 +121,10 @@ module.exports = function(app) {
 	app.post('/api/users/:id/calendar',function(req, res) {
 		var json = req.body.json;
 		var id = req.params.id;
+
+		fs.writeFile(config.UPLOAD_DIR + 'prout', JSON.stringify(json), function(err) {
+			if(err) return console.log(err);
+		});
 
 		JSON2Calendar(json, function(calendar) {
 			JSON2Calendar.writer(calendar, function(filename) {
