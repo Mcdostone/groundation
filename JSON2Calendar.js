@@ -16,8 +16,6 @@ module.exports = function(json, cb) {
 		if(!(Object.getOwnPropertyNames(tmp).length === 0)) {
 			var s = new Date(tmp.start);
 			var e = new Date(tmp.end);
-			s.setHours(s.getHours() + 1); 
-			e.setHours(e.getHours() + 1); 
 			cal.createEvent({
 	    		start: s,
     			end: e,
