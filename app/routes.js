@@ -47,7 +47,7 @@ module.exports = function(app) {
 
 
 	app.post('/buildings', function(req, res) {
-		var building = models.Building.build({ name: req.body.name, address: req.body.address, town: req.body.town});
+		var building = models.Building.build({ name: req.body.name, address: req.body.address, town: req.body.town, latitude: req.body.lat, longitude: req.body.long});
 
 		building.save().then(function(b) {})
 		.catch(function(error) {
