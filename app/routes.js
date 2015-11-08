@@ -47,7 +47,7 @@ module.exports = function(app) {
 
 
 	app.post('/buildings', function(req, res) {
-		var building = models.Building.build({ name: req.body.name, address: req.body.address, town: req.body.town, latitude: req.body.lat, longitude: req.body.long});
+		var building = models.Building.build({ name: req.body.name, address: req.body.address, town: req.body.town, });
 
 		building.save().then(function(b) {})
 		.catch(function(error) {
@@ -180,7 +180,7 @@ module.exports = function(app) {
 
 
 	app.post('/api/buildings', function(req, res) {
-		var building = models.Building.build({ name: req.body.name, address: req.body.address, town: req.body.town});
+		var building = models.Building.build({ name: req.body.name, address: req.body.address, town: req.body.town, latitude: req.body.lat, longitude: req.body.long});
 		if(req.body.address) {
 			nominatim.search({ q: building.address}, function(err, opts, results) {
 				if(err) console.log(err);
