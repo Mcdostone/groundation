@@ -122,10 +122,6 @@ module.exports = function(app) {
 		var json = req.body.json;
 		var id = req.params.id;
 
-		fs.writeFile(config.UPLOAD_DIR + 'prout', JSON.stringify(json), function(err) {
-			if(err) return console.log(err);
-		});
-
 		JSON2Calendar(json, function(calendar) {
 			JSON2Calendar.writer(calendar, function(filename) {
 			

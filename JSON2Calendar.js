@@ -11,13 +11,14 @@ module.exports = function(json, cb) {
  
 	for(i in json) {
 		var tmp  = json[i];
-
-		cal.createEvent({
-	    	start: new Date(tmp.startDate),
-    		end: new Date(tmp.endDate),
-    		summary: tmp.title,
-    		location: 'tmp.location',
-		});
+		if(!(Object.getOwnPropertyNames(tmp).length === 0)) {
+			cal.createEvent({
+	    		start: new Date(tmp.startDate),
+    			end: new Date(tmp.endDate),
+    			summary: tmp.title,
+    			location: 'tmp.location'
+			});
+		}
 	}
 
 	cb(cal);
