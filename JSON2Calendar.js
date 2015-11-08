@@ -8,7 +8,6 @@ module.exports = function(json, cb) {
 
 	 // Create new Calendar and set optional fields 
     cal = ical({
-    	 timezone: 'Europe/Berlin'
     });
  
 	for(i in json) {
@@ -20,7 +19,7 @@ module.exports = function(json, cb) {
 	    		start: s,
     			end: e,
     			summary: tmp.title,
-    			location: 'tmp.location'
+    			location: tmp.location
 			});
 		}
 	}
