@@ -1,8 +1,11 @@
 var ical = require('ical');
 var formatDate = require('simple-format-date');
+var moment = require('moment');
 
 module.exports = function(filename) {
     this.data = ical.parseFile(filename);
+
+    this.lastPresenceByRoom = {};
 
 
     /**
@@ -17,6 +20,20 @@ module.exports = function(filename) {
 			var location = event.location;
 			var desc = format(start) + " - " + format(end) +"\t" + event.summary;
 		}
+
+        for (var k in this.lastPresenceByRoom) {
+            console.log(k);
+        }
+
+    }
+
+
+    this.findLastPresence = function() {
+        for (var k in this.data) {
+            var event = this.data[k];
+            console.log(event);
+            //this.lastPresenceByRoom{event.location} = event.end;
+        }
     }
 
 

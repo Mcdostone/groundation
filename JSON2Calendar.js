@@ -7,14 +7,20 @@ var fs = require('fs');
 module.exports = function(json, cb) {
 
 	 // Create new Calendar and set optional fields 
-    cal = ical({});
+    cal = ical({
+    	 timezone: 'Europe/Berlin'
+    });
  
 	for(i in json) {
 		var tmp  = json[i];
 		if(!(Object.getOwnPropertyNames(tmp).length === 0)) {
+			var s = new Date(tmp.start);
+			var e = new Date(tmp.end);
+			s.setHours(s.getHours() + 1); 
+			e.setHours(e.getHours() + 1); 
 			cal.createEvent({
-	    		start: new Date(tmp.startDate),
-    			end: new Date(tmp.endDate),
+	    		start: s,
+    			end: e,
     			summary: tmp.title,
     			location: 'tmp.location'
 			});

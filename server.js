@@ -43,6 +43,14 @@ var sequelize = new Sequelize(configDB.database, configDB.user, configDB.passwor
 });
 
 models.sequelize.sync({force: true}).then(function () {
+	//console.log(models);
+	models.Building.create({
+    	name: 'Telecom Nancy',
+    	address: 'Nancy',
+    	latitude: 48.66912,
+    	longitude: 6.15540
+  	});
+
   	app.listen(PORT);
 	console.log('Server is running : http://localhost:' + PORT);
 });

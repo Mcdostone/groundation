@@ -152,12 +152,9 @@ module.exports = function(app) {
 				models.User.findOne({where: {idParse: id}}).then(function(user) {
 					if(user) {
 
-						if(user.filename) {
-							var filepath = path.join(config.UPLOAD_DIR, user.filename);
-							if(filepath)
-								fs.unlink(filepath)
-						}
-
+						if(user.filename)
+							deleteOldCalendar(user.filename);
+						
 						user.updateAttributes({ 'filename': filename }).then(function(u) {res.json(u)});
 					}
 					else 
@@ -185,7 +182,6 @@ module.exports = function(app) {
 	app.post('/api/buildings', function(req, res) {
 		var building = models.Building.build({ name: req.body.name, address: req.body.address, town: req.body.town});
 		if(req.body.address) {
-			console.log(building.town);
 			nominatim.search({ q: building.address}, function(err, opts, results) {
 				if(err) console.log(err);
   				console.log(results);
@@ -201,6 +197,11 @@ module.exports = function(app) {
 	});
 
 
+	app.get('/api/buildings/:id/calendar', function(req, res) {
+		res.render('upload', {id: req.params.id});
+	});
+
+
 	app.post('/api/buildings/:id/calendar', upload.single('file') ,function(req, res, next) {
 		var url = req.body.url;
 		var file = req.file;
@@ -208,26 +209,30 @@ module.exports = function(app) {
 
 		models.Building.findById(req.params.id).then(function(data) {
 
-			if(data) {
-				if(url && data)
-					data.updateAttributes({ 'url': url }).then(function(b) {});
-				if(file && data) 
-					data.updateAttributes({ 'filename': file.filename }).then(function(b) {});
+			if(data && file) {
+				if(data.filename)
+					deleteOldCalendar(data.filename);
+					
+				data.updateAttributes({ 'filename': file.filename }).then(function(b) {});
 
 				res.json(data);
 			}
     	});
 	});
 
-	/*app.get('/api/buildings/:id/users', function(req, res) {
-		getBuildingsAndUsers(function(buildings) {
-			res.json(buildings);
-		});
-	})*/
-
-
+	
 	app.get('/locate', function(req, res) {
 		res.render('tmp');
+	})
+
+
+
+	app.get('/api/notifications', function(res, req) {
+		models.Notification.findAll({
+			include: [{ model: models.User }]
+		}).then(function(notifs) {
+			res.json(notifs);
+		});
 	})
 
 
@@ -235,6 +240,11 @@ module.exports = function(app) {
 		models.Building.findAll({ 
 			include: [{ model: models.User }]
 		}).then(cb);
+	}
+
+	function deleteOldCalendar(filename) {
+		var filepath = path.join(config.UPLOAD_DIR, filename);
+		fs.unlink(filepath)
 	}
 
 }

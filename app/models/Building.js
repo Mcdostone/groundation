@@ -19,17 +19,9 @@ module.exports = function(sequelize) {
 		    type: Sequelize.STRING
 	  	}
 	}, {
-	  	freezeTableName: false
+	  	freezeTableName: true
 	});
 
-	Building.sync({force: true}).then(function () {
-  		Building.create({
-    		name: 'Telecom Nancy',
-    		address: 'Nancy',
-    		latitude: 48.66912,
-    		longitude: 6.15540
-  		});
-	});
-
+	
 	return Building;
 };
