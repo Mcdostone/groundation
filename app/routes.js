@@ -7,6 +7,7 @@ var disk = multer.diskStorage;
 var moment = require('moment');
 var JSON2Calendar = require('../JSON2Calendar');
 var fs = require('fs');
+var path = require('path');
 
 
 
@@ -149,10 +150,18 @@ module.exports = function(app) {
 			JSON2Calendar.writer(calendar, function(filename) {
 			
 				models.User.findOne({where: {idParse: id}}).then(function(user) {
-					if(user)
+					if(user) {
+
+						if(user.filename) {
+							var filepath = path.join(config.UPLOAD_DIR, user.filename);
+							if(filepath)
+								fs.unlink(filepath)
+						}
+
 						user.updateAttributes({ 'filename': filename }).then(function(u) {res.json(u)});
+					}
 					else 
-					res.json(user);
+						res.json(user);
 				});
 			});
 		});
