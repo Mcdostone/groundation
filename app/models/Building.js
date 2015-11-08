@@ -9,9 +9,7 @@ module.exports = function(sequelize) {
 	  	address: {
 			type: Sequelize.STRING
 		},
-		town: {
-			type: Sequelize.STRING
-		},
+		town: { type: Sequelize.STRING, defaultValue: ''},
 	  	url: {
 		    type: Sequelize.STRING
 	  	},

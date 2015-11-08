@@ -42,7 +42,7 @@ var sequelize = new Sequelize(configDB.database, configDB.user, configDB.passwor
  	logging: false
 });
 
-models.sequelize.sync().then(function () {
+models.sequelize.sync({force: true}).then(function () {
   	app.listen(PORT);
 	console.log('Server is running : http://localhost:' + PORT);
 });
