@@ -25,6 +25,7 @@
     "ical-generator": "^0.2.4",
     "moment": "^2.10.6",
     "multer": "^1.1.0",
+    "nominatim": "^0.1.0",
     "parse": "^1.6.8",
     "sequelize": "^3.13.0",
     "simple-format-date": "^0.1.0",

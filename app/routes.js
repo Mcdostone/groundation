@@ -8,7 +8,7 @@ var moment = require('moment');
 var JSON2Calendar = require('../JSON2Calendar');
 var fs = require('fs');
 var path = require('path');
-
+var nominatim = require('nominatim');
 
 
 /**
@@ -183,8 +183,15 @@ module.exports = function(app) {
 
 
 	app.post('/api/buildings', function(req, res) {
-		var building = models.Building.build({ name: req.body.name, address: req.body.address});
-
+		var building = models.Building.build({ name: req.body.name, address: req.body.address, town: req.body.town});
+		if(req.body.address) {
+			console.log(building.town);
+			nominatim.search({ q: building.address}, function(err, opts, results) {
+				if(err) console.log(err);
+  				console.log(results);
+			});
+		}
+		
 		building.save().then(function(b) {
 			res.json(b)
 		})
@@ -211,6 +218,11 @@ module.exports = function(app) {
 			}
     	});
 	});
+
+
+	app.get('/locate', function(req, res) {
+		res.render('tmp');
+	})
 
 
 }

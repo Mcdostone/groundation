@@ -10,6 +10,8 @@ module.exports = function(sequelize) {
 			type: Sequelize.STRING
 		},
 		town: { type: Sequelize.STRING, defaultValue: ''},
+		longitude: {type: Sequelize.DOUBLE},
+		latitude: {type: Sequelize.DOUBLE},
 	  	url: {
 		    type: Sequelize.STRING
 	  	},
@@ -23,7 +25,9 @@ module.exports = function(sequelize) {
 	Building.sync({force: true}).then(function () {
   		Building.create({
     		name: 'Telecom Nancy',
-    		address: 'Nancy'
+    		address: 'Nancy',
+    		latitude: 48.66912,
+    		longitude: 6.15540
   		});
 	});
 
