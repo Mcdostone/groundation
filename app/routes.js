@@ -170,7 +170,19 @@ module.exports = function(app) {
 
 	app.get('/api/buildings', function(req, res) {
 		models.Building.findAll().then(function(buildings) {
-				res.json(buildings)
+			var results = [];
+			for(b in buildings) {
+				var tmp = buildings[b];
+				//console.log(tmp);
+				getUsersInBuildings(buildings, function(users) {
+					tmp.users = users;
+					console.log(users);
+					results.push(tmp);
+				});
+			}
+			console.log(results);
+			//res.json(buildings)
+			res.json({})
 		});
 	});
 
@@ -220,11 +232,9 @@ module.exports = function(app) {
 	});
 
 	app.get('/api/buildings/:id/users', function(req, res) {
-		models.Building.findById(req.params.id).then(function(b){
-			console.log(b.getUsers());
+		getBuildingsAndUsers(function(buildings) {
+			res.json(buildings);
 		});
-
-    	res.json({});
 	})
 
 
@@ -232,5 +242,11 @@ module.exports = function(app) {
 		res.render('tmp');
 	})
 
+
+	function getBuildingsAndUsers(cb) {
+		models.Building.findAll({ 
+			include: [{ model: models.User }]
+		}).then(cb);
+	}
 
 }
