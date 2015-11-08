@@ -11,7 +11,9 @@ module.exports = function(sequelize) {
 	  	},
 	  	filename: {
 		    type: Sequelize.STRING
-	  	}
+	  	},
+
+	  	lastNotification: {type: Sequelize.DATE}
 	}, {
 	  	freezeTableName: true
 	});	

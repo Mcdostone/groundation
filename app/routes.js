@@ -4,6 +4,7 @@ var multer = require('multer');
 var config = require('../config/server');
 var upload = multer({ dest: config.UPLOAD_DIR });
 var disk = multer.diskStorage;
+var moment = require('moment');
 var JSON2Calendar = require('../JSON2Calendar');
 var fs = require('fs');
 
@@ -119,9 +120,25 @@ module.exports = function(app) {
 	});
 
 	app.post('/api/users/:id/notify', function(req, res) {
-		// Here put the code which push the notif on the device.
-		parse(req.params.id, req.body.notification);
-		res.send(200);
+		models.User.findOne({where: {idParse: req.params.id}}).then(function(user) {
+			if(user) {
+				var canSend = true;
+				var now = moment();
+				var last = moment(user.lastNotification);
+
+				if(user.lastNotification) {
+					canSend = now.isAfter(last.add(config.DELAY.value,config.DELAY.unity));
+				}
+
+				if(canSend) {
+					parse('a28eef16-60fb-4742-8fed-dbc4a487530e', req.body.notification);
+					user.updateAttributes({ 'lastNotification': new Date() }).then(function(u) {});
+				}
+
+				res.json(user);
+			}
+			
+		});
 	});
 
 	app.post('/api/users/:id/calendar',function(req, res) {
