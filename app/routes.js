@@ -219,6 +219,14 @@ module.exports = function(app) {
     	});
 	});
 
+	app.get('/api/buildings/:id/users', function(req, res) {
+		models.Building.findById(req.params.id).then(function(b){
+			console.log(b.getUsers());
+		});
+
+    	res.json({});
+	})
+
 
 	app.get('/locate', function(req, res) {
 		res.render('tmp');
