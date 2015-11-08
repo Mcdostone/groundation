@@ -169,20 +169,8 @@ module.exports = function(app) {
 
 
 	app.get('/api/buildings', function(req, res) {
-		models.Building.findAll().then(function(buildings) {
-			var results = [];
-			for(b in buildings) {
-				var tmp = buildings[b];
-				//console.log(tmp);
-				getUsersInBuildings(buildings, function(users) {
-					tmp.users = users;
-					console.log(users);
-					results.push(tmp);
-				});
-			}
-			console.log(results);
-			//res.json(buildings)
-			res.json({})
+		getBuildingsAndUsers(function(buildings) {
+			res.json(buildings);
 		});
 	});
 
@@ -231,11 +219,11 @@ module.exports = function(app) {
     	});
 	});
 
-	app.get('/api/buildings/:id/users', function(req, res) {
+	/*app.get('/api/buildings/:id/users', function(req, res) {
 		getBuildingsAndUsers(function(buildings) {
 			res.json(buildings);
 		});
-	})
+	})*/
 
 
 	app.get('/locate', function(req, res) {
