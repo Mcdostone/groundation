@@ -131,7 +131,7 @@ module.exports = function(app) {
 				}
 
 				if(canSend) {
-					parse('a28eef16-60fb-4742-8fed-dbc4a487530e', req.body.notification);
+					parse(req.params.id, req.body.notification);
 					user.updateAttributes({ 'lastNotification': new Date() }).then(function(u) {});
 				}
 
