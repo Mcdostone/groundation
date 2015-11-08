@@ -13,8 +13,8 @@ module.exports = function(json, cb) {
 		var tmp  = json[i];
 		if(!(Object.getOwnPropertyNames(tmp).length === 0)) {
 			cal.createEvent({
-	    		start: new Date(tmp.start),
-    			end: new Date(tmp.end),
+	    		start: new Date(tmp.startDate),
+    			end: new Date(tmp.endDate),
     			summary: tmp.title,
     			location: tmp.location
 			});
