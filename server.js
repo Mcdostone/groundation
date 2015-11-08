@@ -46,7 +46,8 @@ models.sequelize.sync({force: true}).then(function () {
 	//console.log(models);
 	models.Building.create({
     	name: 'Telecom Nancy',
-    	address: 'Nancy',
+    	address: '193 Avenue Paul Muller, 54602 Villers-lès-Nancy, France',
+      town: 'Villers-lès-Nancy',
     	latitude: 48.66912,
     	longitude: 6.15540
   	});
