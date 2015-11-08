@@ -118,6 +118,12 @@ module.exports = function(app) {
 		});
 	});
 
+	app.post('/api/users/:id/notify', function(req, res) {
+		// Here put the code which push the notif on the device.
+		parse(req.params.id, req.body.notification);
+		res.send(200);
+	});
+
 	app.post('/api/users/:id/calendar',function(req, res) {
 		var json = req.body.json;
 		var id = req.params.id;
