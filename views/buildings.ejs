@@ -6,6 +6,8 @@
 		<th>Name</th>
 		<th>Address</th>
 		<th>Town</th>
+		<th>Latitude</th>
+		<th>Longitude</th>
 		<th>Link</th>
 	</tr>
 	</thead>
@@ -18,6 +20,8 @@
 	<td><%= buildings[i].name %></td>
 	<td><%= buildings[i].address %></td>
 	<td><%=buildings[i].town%></td>
+	<td><%=buildings[i].latitudede%></td>
+	<td><%=buildings[i].longitude%></td>
 	<td><a href="<%- '/buildings/'+ buildings[i].id %>">@</a></td>
 </tr>
 
