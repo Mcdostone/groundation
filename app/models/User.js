@@ -3,7 +3,7 @@ var Sequelize = require('sequelize');
 module.exports = function(sequelize) {
     
 	var User = sequelize.define('user', {
-	  	idParse: {
+	  	parseId: {
 	    	type: Sequelize.STRING,
 	  	},
 	  	url: {
